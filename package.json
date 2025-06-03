@@ -1,6 +1,6 @@
 {
-  "name": "prettier-config",
-  "version": "1.0.0",
+  "name": "@alexevs/prettier-config",
+  "version": "0.9.0",
   "main": "index.json",
   "exports": {
     ".": "./index.json"
@@ -11,7 +11,15 @@
   "bugs": {
     "url": "https://github.com/a1exevs/prettier-config/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a1exevs/prettier-config.git"
+  },
   "keywords": ["prettier", "config", "formatting"],
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
   "peerDependencies": {
     "prettier": "3.5.3"
   },
