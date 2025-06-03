@@ -5,7 +5,7 @@
   "exports": {
     ".": "./index.json"
   },
-  "description": "Shared Prettier configuration used across multiple projects by AlexEvs.",
+  "description": "Shared Prettier configuration used across multiple projects.",
   "author": "AlexEvs",
   "homepage": "https://a1exevs.github.io/prettier-config",
   "bugs": {
@@ -14,5 +14,8 @@
   "keywords": ["prettier", "config", "formatting"],
   "peerDependencies": {
     "prettier": "3.5.3"
+  },
+  "scripts": {
+    "publish": "npm login && npm publish --access public && exit 0"
   }
 }
