@@ -1,0 +1,58 @@
+name: Project publish to npm
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: |
+          npm install -g corepack@0.31.0
+          corepack enable
+          yarn install
+
+      - name: Get local and published versions
+        id: versions
+        run: |
+          LOCAL_VERSION=$(node -p "require('./package.json').version")
+          PUBLISHED_VERSION=$(npm view $(node -p "require('./package.json').name") version || echo "0.0.0")
+          echo "Local version: $LOCAL_VERSION"
+          echo "Published version: $PUBLISHED_VERSION"
+          echo "local_version=$LOCAL_VERSION" >> $GITHUB_OUTPUT
+          echo "published_version=$PUBLISHED_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Compare versions and decide to publish
+        if: steps.versions.outputs.local_version != steps.versions.outputs.published_version
+        run: |
+          echo "✅ Version has changed. Proceeding with build and publish."
+
+      - name: Fail if version has not changed
+        if: steps.versions.outputs.local_version == steps.versions.outputs.published_version
+        run: |
+          echo "❌ Local version matches published version (${{ steps.versions.outputs.local_version }})."
+          echo "You must bump the version before publishing."
+          exit 1
+
+      - name: Project build
+        if: steps.versions.outputs.local_version != steps.versions.outputs.published_version
+        run: yarn build
+
+      - name: Publish package
+        if: steps.versions.outputs.local_version != steps.versions.outputs.published_version
+        run: yarn publish-package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
