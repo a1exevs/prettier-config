@@ -24,6 +24,9 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
+  "files": [
+    "dist"
+  ],
   "peerDependencies": {
     "prettier": "3.5.3"
   },
