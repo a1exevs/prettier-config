@@ -1,3 +1,6 @@
-.idea
+linter
+scripts
+src
+tests
 DEV-README.md
 RELEASE-NOTES.md
