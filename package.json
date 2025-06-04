@@ -28,12 +28,12 @@
     "prettier": "3.5.3"
   },
   "scripts": {
-    "version:major": "echo `TODO`",
-    "version:minor": "echo `TODO`",
-    "version:patch": "echo `TODO`",
-    "update-version:major": "echo `TODO`",
-    "update-version:minor": "echo `TODO`",
-    "update-version:patch": "echo `TODO`",
+    "version:major": "ts-node scripts/increase-version.ts major",
+    "version:minor": "ts-node scripts/increase-version.ts minor",
+    "version:patch": "ts-node scripts/increase-version.ts patch",
+    "update-version:major": "./scripts/update-version.sh major",
+    "update-version:minor": "./scripts/update-version.sh minor",
+    "update-version:patch": "./scripts/update-version.sh patch",
     "build": "rimraf dist && tsc",
     "format": "yarn build && prettier --write \"{src,linter,tests,scripts}/**/*.ts\"",
     "lint": "echo `TODO`",
@@ -42,8 +42,11 @@
     "docs": "echo `TODO`"
   },
   "devDependencies": {
+    "fs": "0.0.1-security",
+    "path": "0.12.7",
     "prettier": "3.5.3",
     "rimraf": "6.0.1",
+    "ts-node": "10.9.2",
     "typescript": "5.8.3"
   },
   "packageManager": "yarn@4.9.0"
