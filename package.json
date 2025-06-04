@@ -1,6 +1,6 @@
 {
   "name": "@alexevs/prettier-config",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "main": "dist/index.js",
   "exports": {
     ".": "./dist/index.js"
@@ -24,6 +24,9 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
+  "files": [
+    "dist"
+  ],
   "peerDependencies": {
     "prettier": "3.5.3"
   },
