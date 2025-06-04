@@ -1,3 +1,11 @@
+# Release v0.12.0
+## What's Changed
+* [Common] RELEASE-NOTES.md update v0.11.0 by @a1exevs in https://github.com/a1exevs/prettier-config/pull/14
+* [Improvement] Export corrections (without 'default') by @a1exevs in https://github.com/a1exevs/prettier-config/pull/15
+* [Common] Version increase v0.12.0 by @a1exevs in https://github.com/a1exevs/prettier-config/pull/16
+
+**Full Changelog**: https://github.com/a1exevs/prettier-config/compare/v0.11.0...v0.12.0
+
 # Release v0.11.0
 ## What's Changed
 * [Common] Init PR by @a1exevs in https://github.com/a1exevs/prettier-config/pull/1
