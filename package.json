@@ -1,10 +1,6 @@
 {
   "name": "@alexevs/prettier-config",
   "version": "0.11.0",
-  "main": "dist/index.js",
-  "exports": {
-    ".": "./dist/index.js"
-  },
   "description": "Shared Prettier configuration used across multiple projects.",
   "author": "AlexEvs",
   "homepage": "https://a1exevs.github.io/prettier-config",
@@ -21,12 +17,20 @@
     "formatting"
   ],
   "license": "MIT",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "prettier.config.js"
+  ],
+  "exports": {
+    ".": {
+      "require": "./prettier.config.js",
+      "default": "./dist/index.js"
+    }
+  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
-  "files": [
-    "dist"
-  ],
   "peerDependencies": {
     "prettier": "3.5.3"
   },
