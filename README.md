@@ -12,7 +12,8 @@ yarn add -D prettier @alexevs/prettier-config
 
 ## ⚙️ Usage
 
-Create a `prettier.config.cjs` in the root of your project and re-export this configuration:
+Create a `prettier.config.cjs` in the root of your project and re-export this configuration. 
+If your project relies on CommonJS, you can also name the file `prettier.config.js`:
 
 ```javascript
 // prettier.config.cjs
