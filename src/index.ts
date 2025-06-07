@@ -23,4 +23,4 @@ const config: Config = {
   singleAttributePerLine: false,
 };
 
-export default config;
+export = config;
