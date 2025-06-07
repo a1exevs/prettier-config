@@ -1,6 +1,6 @@
 {
   "name": "@alexevs/prettier-config",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "description": "Shared Prettier configuration used across multiple projects.",
   "author": "AlexEvs",
   "homepage": "https://a1exevs.github.io/prettier-config",
