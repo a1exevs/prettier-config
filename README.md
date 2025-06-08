@@ -1,5 +1,6 @@
-# @alexevs/prettier-config 🎨
+![Prettier Config logo](https://raw.githubusercontent.com/a1exevs/prettier-config/main/logo.png)
 
+# Description
 Reusable Prettier configuration to keep your code style consistent across projects.
 
 ## 📦 Installation
