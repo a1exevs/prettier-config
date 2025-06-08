@@ -1,3 +1,11 @@
+# Release v0.14.0
+## What's Changed
+* [Common] RELEASE-NOTES.md update v0.13.0 by @a1exevs in https://github.com/a1exevs/prettier-config/pull/23
+* [Common] Logo by @a1exevs in https://github.com/a1exevs/prettier-config/pull/24
+* [Common] Version increase v0.14.0 by @a1exevs in https://github.com/a1exevs/prettier-config/pull/25
+
+**Full Changelog**: https://github.com/a1exevs/prettier-config/compare/v0.13.0...v0.14.0
+
 # Release v0.13.0
 ## What's Changed
 * Release v0.12.0 by @a1exevs in https://github.com/a1exevs/prettier-config/pull/17
