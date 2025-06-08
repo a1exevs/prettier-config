@@ -1,3 +1,14 @@
+# Release v0.13.0
+## What's Changed
+* Release v0.12.0 by @a1exevs in https://github.com/a1exevs/prettier-config/pull/17
+* [Common] RELEASE-NOTES.md update v0.12.0 by @a1exevs in https://github.com/a1exevs/prettier-config/pull/18
+* [Refactoring] Fix default import export by @a1exevs in https://github.com/a1exevs/prettier-config/pull/20
+* [Common] Update README with emoji flair by @a1exevs in https://github.com/a1exevs/prettier-config/pull/19
+* [Common] Version increase v0.13.0 by @a1exevs in https://github.com/a1exevs/prettier-config/pull/21
+
+
+**Full Changelog**: https://github.com/a1exevs/prettier-config/compare/v0.12.0...v0.13.0
+
 # Release v0.12.0
 ## What's Changed
 * [Common] RELEASE-NOTES.md update v0.11.0 by @a1exevs in https://github.com/a1exevs/prettier-config/pull/14
