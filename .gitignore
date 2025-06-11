@@ -4,4 +4,4 @@ dist
 .yarn
 .yarnrc
 .coverage
-docs
+dist/docs
