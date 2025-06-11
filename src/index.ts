@@ -1,5 +1,8 @@
 import type { Config } from 'prettier';
 
+/**
+ * TODO Documentation
+ */
 const config: Config = {
   printWidth: 120,
   tabWidth: 2,
