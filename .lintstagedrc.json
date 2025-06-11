@@ -1,0 +1,6 @@
+{
+  "**/*.{ts,tsx}": [
+    "prettier --write",
+    "eslint --config eslint.config.ts \"{src,linter,tests,scripts}/**/*.{ts,tsx}\""
+  ]
+}
