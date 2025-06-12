@@ -1,3 +1,14 @@
+# Release v1.0.0
+## What's Changed
+* [Common] RELEASE-NOTES.md update v0.14.0 by @a1exevs in https://github.com/a1exevs/prettier-config/pull/27
+* [Common] renovate.json by @a1exevs in https://github.com/a1exevs/prettier-config/pull/28
+* [Common][Documentation] TypeDoc installation by @a1exevs in https://github.com/a1exevs/prettier-config/pull/30
+* [Documentation] Add TypeDoc comments by @a1exevs in https://github.com/a1exevs/prettier-config/pull/31
+* [Common] Linter, Husky, Lint-Staged configuration by @a1exevs in https://github.com/a1exevs/prettier-config/pull/32
+* [Common] Version increase v1.0.0 by @a1exevs in https://github.com/a1exevs/prettier-config/pull/33
+
+**Full Changelog**: https://github.com/a1exevs/prettier-config/compare/v0.14.0...v1.0.0
+
 # Release v0.14.0
 ## What's Changed
 * [Common] RELEASE-NOTES.md update v0.13.0 by @a1exevs in https://github.com/a1exevs/prettier-config/pull/23
