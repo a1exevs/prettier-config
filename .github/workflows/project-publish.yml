@@ -8,6 +8,10 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
       - name: Checkout
@@ -21,6 +25,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          npm install -g npm@latest
           npm install -g corepack@0.31.0
           corepack enable
           yarn install
@@ -54,5 +59,3 @@ jobs:
       - name: Publish package
         if: steps.versions.outputs.local_version != steps.versions.outputs.published_version
         run: yarn publish-package
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

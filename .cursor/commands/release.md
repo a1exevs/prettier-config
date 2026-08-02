@@ -139,6 +139,6 @@ When the user says `continue`, `merged`, `done`, or similar:
 - If `yarn update-version:*` fails (dirty tree, push rejected, etc.), show the error and STOP; do not invent a workaround that skips the script.
 - If a promote PR already exists, link it instead of opening a duplicate.
 - If tag `vX.X.X` already exists on a different commit, STOP and ask the user how to proceed.
-- If `project-publish.yml` fails (e.g. version already published, missing `NPM_TOKEN`), STOP with the run URL and error summary.
+- If `project-publish.yml` fails (e.g. version already published, Trusted Publisher / OIDC misconfigured), STOP with the run URL and error summary.
 
 This command will be available in chat with /release <patch|minor|major>
