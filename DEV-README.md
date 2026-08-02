@@ -4,7 +4,7 @@
 Shared Prettier configuration used across multiple projects.
 
 ## Yarn version
-v4.9.0
+v4.18.0
 ```bash
 npm install -g corepack@0.31.0
 corepack enable
@@ -12,7 +12,7 @@ yarn install
 ```
 
 ## Node version
-v20.9.0. Use NVM:
+v22.23.2. Use NVM:
 1. nvm current - check current version of Node
 2. nvm list - show list of available Node versions
 3. nvm install <version> - to install and use Node version.
@@ -22,15 +22,15 @@ v20.9.0. Use NVM:
 In the project directory, you can run:
 
 ### `yarn version:major`
-Increments the major version in `package.json` and `src/app/manifest.json`.  
+Increments the major version in `package.json`.  
 For example, changes `"version": "1.2.3"` to `"version": "2.0.0"`.
 
 ### `yarn version:minor`
-Increments the minor version in `package.json` and `src/app/manifest.json`.  
+Increments the minor version in `package.json`.  
 For example, changes `"version": "1.2.3"` to `"version": "1.3.0"`.
 
 ### `yarn version:patch`
-Increments the patch version in `package.json` and `src/app/manifest.json`.  
+Increments the patch version in `package.json`.  
 For example, changes `"version": "1.2.3"` to `"version": "1.2.4"`.
 
 ### `yarn update-version:major`
@@ -61,37 +61,38 @@ Fixes errors found by ESLint in TypeScript files.
 Generates comprehensive documentation using TypeDoc.
 
 ## 📦 How to set up automatic publishing to npm
-To enable automatic publishing of the package when changes are pushed to the `main` branch, follow these steps:
-### 1. 🔐 Generate an Automation Token on npm
-1. Open your NPM package on https://npmjs.com -> Access Tokens
-2. Click **"Generate New Token" -> "Classic Token"**, then choose **Type** - `Automation`
-3. Copy the generated token (you won’t be able to see it again!).
+Publishing uses [Trusted Publishing](https://docs.npmjs.com/trusted-publishers/) (OIDC). No npm token is stored in GitHub Secrets.
 
-📘 See [npm’s official docs] for more info.
+### 1. 🔐 Configure Trusted Publisher on npm
+1. Open the package on https://npmjs.com → **Package Settings** → **Trusted Publisher**.
+2. Choose **GitHub Actions** and fill in:
+   - **Organization or user:** `a1exevs`
+   - **Repository:** `prettier-config`
+   - **Workflow filename:** `project-publish.yml`
+   - **Environment name:** `npm`
+   - **Allowed actions:** `npm publish` only (do not enable `npm stage publish` unless you switch the workflow to staged publishing)
+3. Save.
 
-### 2. 🔑 Add the Token to GitHub Secrets
-1. Open your GitHub repository.
-2. Go to **Settings → Secrets and variables → Actions**.
-3. Click **"New repository secret"**.
-4. Name it: `NPM_TOKEN`
-5. Paste the token value.
+📘 See [npm Trusted Publishers docs](https://docs.npmjs.com/trusted-publishers/).
 
-📘 See [GitHub’s guide on encrypted secrets] for details.
+### 2. 🔑 Create the GitHub Actions environment
+1. Open the GitHub repository → **Settings → Environments**.
+2. Create an environment named `npm`.
+3. Under **Deployment branches and tags**, allow only the `main` branch.
+
+The publish job in `.github/workflows/project-publish.yml` must use the same name (`environment: npm`) and include `permissions: id-token: write`.
 
 ### 3. ✅ That’s it!
-The GitHub Actions workflow will now use `NPM_TOKEN` to publish the package when version changes are pushed to `main`.
+When a version bump is pushed to `main`, the workflow authenticates to npm via OIDC and runs `yarn publish-package`. No `NPM_TOKEN` secret is required — you can remove it if it still exists.
 > ⚠️ Make sure to bump the version in `package.json` before pushing — otherwise, the workflow will fail due to version conflict.
 ---
-
-[npm’s official docs]: https://docs.npmjs.com/creating-and-viewing-access-tokens
-[GitHub’s guide on encrypted secrets]: https://docs.github.com/en/actions/security-guides/encrypted-secrets
 
 
 ## Release steps
 1) run yarn update-version:patch (or :minor, :major)
 2) create PR with message "[Common] Version increase vX.X.X" from "common/version-increase" into "develop"
 3) create PR with message "Release vX.X.X" from "develop" into "main"
-4) go to [Github Repo Home page](https://github.com/a1exevs/ts-guards) -> Tags -> Releases -> Draft a new release.
+4) go to Github Repo Home page -> Tags -> Releases -> Draft a new release.
 
    a) create a new tag via "Choose a tag" autocomplete
 
@@ -103,8 +104,7 @@ The GitHub Actions workflow will now use `NPM_TOKEN` to publish the package when
 
    e) click the "Publish release"
 5) check 'project-publish.yml' job result (Github Actions)
-6) checkout "develop" and pull, then merge "main" into "develop" and push
-7) update RELEASE-NOTES.md with using generated notes in step 4, create PR with from "common/release-notes-update-vX.X.X" to "develop" message "[Common] RELEASE-NOTES.md update vX.X.X"
+6) update RELEASE-NOTES.md with using generated notes in step 4, create PR with from "common/release-notes-update-vX.X.X" to "develop" message "[Common] RELEASE-NOTES.md update vX.X.X"
 
 ## Repository
 Link to repository https://github.com/a1exevs/prettier-config.

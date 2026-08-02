@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es2021",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "esModuleInterop": true,
+    "rootDir": ".",
+    "strict": true,
+    "declaration": true,
+    "alwaysStrict": true,
+    "importHelpers": true,
+    "types": ["node"],
+    "typeRoots": ["../node_modules/@types"]
+  },
+  "include": ["./**/*.ts"]
+}

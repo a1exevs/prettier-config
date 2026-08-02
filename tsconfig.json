@@ -1,24 +1,18 @@
 {
   "compilerOptions": {
     "target": "es2021",
-    "module": "commonJs",
+    "module": "nodenext",
     "esModuleInterop": true,
     "rootDir": "src",
-    "baseUrl": "./",
     "outDir": "./dist",
     "strict": true,
     "declaration": false, /**don't emit d.ts**/
     "alwaysStrict": true,
     "importHelpers": true,
-    "moduleResolution": "node",
-    "typeRoots": [
-      "node_modules/@types",
-      "types"
-    ],
+    "moduleResolution": "nodenext",
+    "typeRoots": ["node_modules/@types", "types"],
     "paths": {
-      "src/*": [
-        "src/*"
-      ]
+      "src/*": ["./src/*"]
     }
   },
   "include": ["src/**/*"],

@@ -1,7 +1,7 @@
 import { Linter } from "eslint";
 
 const importOrderRule: Linter.RulesRecord = {
-  "import/order": [
+  "import-x/order": [
     "error",
     {
       alphabetize: {
