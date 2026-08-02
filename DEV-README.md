@@ -12,7 +12,7 @@ yarn install
 ```
 
 ## Node version
-v20.9.0. Use NVM:
+v22.23.2. Use NVM:
 1. nvm current - check current version of Node
 2. nvm list - show list of available Node versions
 3. nvm install <version> - to install and use Node version.
@@ -91,7 +91,7 @@ The GitHub Actions workflow will now use `NPM_TOKEN` to publish the package when
 1) run yarn update-version:patch (or :minor, :major)
 2) create PR with message "[Common] Version increase vX.X.X" from "common/version-increase" into "develop"
 3) create PR with message "Release vX.X.X" from "develop" into "main"
-4) go to [Github Repo Home page](https://github.com/a1exevs/ts-guards) -> Tags -> Releases -> Draft a new release.
+4) go to Github Repo Home page -> Tags -> Releases -> Draft a new release.
 
    a) create a new tag via "Choose a tag" autocomplete
 
@@ -103,8 +103,7 @@ The GitHub Actions workflow will now use `NPM_TOKEN` to publish the package when
 
    e) click the "Publish release"
 5) check 'project-publish.yml' job result (Github Actions)
-6) checkout "develop" and pull, then merge "main" into "develop" and push
-7) update RELEASE-NOTES.md with using generated notes in step 4, create PR with from "common/release-notes-update-vX.X.X" to "develop" message "[Common] RELEASE-NOTES.md update vX.X.X"
+6) update RELEASE-NOTES.md with using generated notes in step 4, create PR with from "common/release-notes-update-vX.X.X" to "develop" message "[Common] RELEASE-NOTES.md update vX.X.X"
 
 ## Repository
 Link to repository https://github.com/a1exevs/prettier-config.
