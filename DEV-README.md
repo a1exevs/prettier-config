@@ -4,7 +4,7 @@
 Shared Prettier configuration used across multiple projects.
 
 ## Yarn version
-v4.9.0
+v4.18.0
 ```bash
 npm install -g corepack@0.31.0
 corepack enable
