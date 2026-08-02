@@ -29,9 +29,9 @@
     "prettier": "3.9.6"
   },
   "scripts": {
-    "version:major": "ts-node scripts/increase-version.ts major",
-    "version:minor": "ts-node scripts/increase-version.ts minor",
-    "version:patch": "ts-node scripts/increase-version.ts patch",
+    "version:major": "ts-node -P scripts/tsconfig.json scripts/increase-version.ts major",
+    "version:minor": "ts-node -P scripts/tsconfig.json scripts/increase-version.ts minor",
+    "version:patch": "ts-node -P scripts/tsconfig.json scripts/increase-version.ts patch",
     "update-version:major": "./scripts/update-version.sh major",
     "update-version:minor": "./scripts/update-version.sh minor",
     "update-version:patch": "./scripts/update-version.sh patch",

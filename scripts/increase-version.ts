@@ -9,7 +9,11 @@ enum IncreaseVersionMode {
   PATCH = 'patch',
 }
 
-const PATH_TO_PACKAGE_JSON = path.resolve(rootDir, 'package.json');
+/** App version is always taken from the client workspace; server stays in lockstep. */
+const CANONICAL_PACKAGE_JSON = path.resolve(rootDir, 'client', 'package.json');
+const PACKAGE_JSON_PATHS = [
+  path.resolve(rootDir, 'package.json'),
+];
 
 function increaseVersion(version: string, type: IncreaseVersionMode): string {
   const parts = version.split('.').map(Number);
@@ -36,20 +40,29 @@ function increaseVersion(version: string, type: IncreaseVersionMode): string {
   return parts.join('.');
 }
 
-function updateVersionInFile(filePath: string, type: IncreaseVersionMode): void {
+function readVersion(filePath: string): string {
   const fileAbsolutePath = path.resolve(filePath);
   const content = fs.readFileSync(fileAbsolutePath, 'utf8');
-  const json = JSON.parse(content);
+  const json = JSON.parse(content) as { version?: string };
+  if (!json.version) {
+    throw new Error(`No "version" field found in ${filePath}`);
+  }
+  return json.version;
+}
+
+function setVersionInFile(filePath: string, newVersion: string): void {
+  const fileAbsolutePath = path.resolve(filePath);
+  const content = fs.readFileSync(fileAbsolutePath, 'utf8');
+  const json = JSON.parse(content) as { version?: string };
 
   if (!json.version) {
     throw new Error(`No "version" field found in ${filePath}`);
   }
 
   const oldVersion = json.version;
-  const newVersion = increaseVersion(oldVersion, type);
   json.version = newVersion;
 
-  fs.writeFileSync(fileAbsolutePath, `${JSON.stringify(json, null, 2)}\n`, 'utf8');
+  fs.writeFileSync(fileAbsolutePath, JSON.stringify(json, null, 2) + '\n', 'utf8');
   console.log(`Updated version in ${filePath}: ${oldVersion} -> ${newVersion}`);
 }
 
@@ -58,12 +71,29 @@ function main(): void {
   const type = args[0] as IncreaseVersionMode;
 
   if (![IncreaseVersionMode.MAJOR, IncreaseVersionMode.MINOR, IncreaseVersionMode.PATCH].includes(type)) {
-    console.error('Usage: ts-node increase-version.ts <major|minor|patch>');
+    console.error('Usage: node increase-version.ts <major|minor|patch>');
     process.exit(1);
   }
 
   try {
-    updateVersionInFile(PATH_TO_PACKAGE_JSON, type);
+    const oldCanonical = readVersion(CANONICAL_PACKAGE_JSON);
+    const newVersion = increaseVersion(oldCanonical, type);
+
+    for (const pkgPath of PACKAGE_JSON_PATHS) {
+      if (pkgPath === CANONICAL_PACKAGE_JSON) {
+        continue;
+      }
+      const other = readVersion(pkgPath);
+      if (other !== oldCanonical) {
+        console.warn(
+          `Warning: version in ${path.relative(rootDir, pkgPath)} (${other}) differs from client (${oldCanonical}). Both will be set to ${newVersion}.`,
+        );
+      }
+    }
+
+    for (const pkgPath of PACKAGE_JSON_PATHS) {
+      setVersionInFile(pkgPath, newVersion);
+    }
   } catch (error: unknown) {
     console.error(`Error: ${error}`);
     process.exit(1);
