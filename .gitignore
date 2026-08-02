@@ -5,3 +5,4 @@ dist
 .yarnrc
 .coverage
 dist/docs
+docs
