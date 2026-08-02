@@ -1,5 +1,6 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
+import process from 'node:process';
 
 import { rootDir } from './common';
 
@@ -9,11 +10,7 @@ enum IncreaseVersionMode {
   PATCH = 'patch',
 }
 
-/** App version is always taken from the client workspace; server stays in lockstep. */
-const CANONICAL_PACKAGE_JSON = path.resolve(rootDir, 'client', 'package.json');
-const PACKAGE_JSON_PATHS = [
-  path.resolve(rootDir, 'package.json'),
-];
+const PACKAGE_JSON_PATH = path.resolve(rootDir, 'package.json');
 
 function increaseVersion(version: string, type: IncreaseVersionMode): string {
   const parts = version.split('.').map(Number);
@@ -41,8 +38,7 @@ function increaseVersion(version: string, type: IncreaseVersionMode): string {
 }
 
 function readVersion(filePath: string): string {
-  const fileAbsolutePath = path.resolve(filePath);
-  const content = fs.readFileSync(fileAbsolutePath, 'utf8');
+  const content = fs.readFileSync(filePath, 'utf8');
   const json = JSON.parse(content) as { version?: string };
   if (!json.version) {
     throw new Error(`No "version" field found in ${filePath}`);
@@ -51,8 +47,7 @@ function readVersion(filePath: string): string {
 }
 
 function setVersionInFile(filePath: string, newVersion: string): void {
-  const fileAbsolutePath = path.resolve(filePath);
-  const content = fs.readFileSync(fileAbsolutePath, 'utf8');
+  const content = fs.readFileSync(filePath, 'utf8');
   const json = JSON.parse(content) as { version?: string };
 
   if (!json.version) {
@@ -62,8 +57,8 @@ function setVersionInFile(filePath: string, newVersion: string): void {
   const oldVersion = json.version;
   json.version = newVersion;
 
-  fs.writeFileSync(fileAbsolutePath, JSON.stringify(json, null, 2) + '\n', 'utf8');
-  console.log(`Updated version in ${filePath}: ${oldVersion} -> ${newVersion}`);
+  fs.writeFileSync(filePath, JSON.stringify(json, null, 2) + '\n', 'utf8');
+  console.log(`Updated version in ${path.relative(rootDir, filePath)}: ${oldVersion} -> ${newVersion}`);
 }
 
 function main(): void {
@@ -76,24 +71,9 @@ function main(): void {
   }
 
   try {
-    const oldCanonical = readVersion(CANONICAL_PACKAGE_JSON);
-    const newVersion = increaseVersion(oldCanonical, type);
-
-    for (const pkgPath of PACKAGE_JSON_PATHS) {
-      if (pkgPath === CANONICAL_PACKAGE_JSON) {
-        continue;
-      }
-      const other = readVersion(pkgPath);
-      if (other !== oldCanonical) {
-        console.warn(
-          `Warning: version in ${path.relative(rootDir, pkgPath)} (${other}) differs from client (${oldCanonical}). Both will be set to ${newVersion}.`,
-        );
-      }
-    }
-
-    for (const pkgPath of PACKAGE_JSON_PATHS) {
-      setVersionInFile(pkgPath, newVersion);
-    }
+    const oldVersion = readVersion(PACKAGE_JSON_PATH);
+    const newVersion = increaseVersion(oldVersion, type);
+    setVersionInFile(PACKAGE_JSON_PATH, newVersion);
   } catch (error: unknown) {
     console.error(`Error: ${error}`);
     process.exit(1);
